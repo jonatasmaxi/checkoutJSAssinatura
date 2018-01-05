@@ -10,9 +10,6 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res) {
     res.render('site/checkout');
 });
-app.get('/contato', function(req, res) {
-    res.render('site/contato');
-});
 
 app.post('/createSubscription',function (req,res) {
 	if (req.body.payment_method === 'credit_card'){
