@@ -1,0 +1,30 @@
+{
+  "name": "node_leasons",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "leasons",
+    "learning"
+  ],
+  "author": "Leonardo Barbosa",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "pagarme": "^3.1.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonardo-barbosa/node-leasons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/leonardo-barbosa/node-leasons/issues"
+  },
+  "homepage": "https://github.com/leonardo-barbosa/node-leasons#readme",
+  "description": ""
+}

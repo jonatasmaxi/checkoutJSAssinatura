@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <!-- SCRIPT PAGAR.ME -->
+    <script src="https://assets.pagar.me/checkout/1.1.0/checkout.js"></script>
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <button id="pay-button">Abrir modal de pagamento</button>
+
+    <script>
+    var button = document.querySelector('button');
+
+    // Abrir o modal ao clicar no botão
+    button.addEventListener('click', function() {
+
+      // inicia a instância do checkout
+      var checkout = new PagarMeCheckout.Checkout({
+        encryption_key: 'SUA_ENCRYPTION_KEY',
+        success: function(data) {
+          console.log(data);
+          $.ajax({
+            type: "POST",
+            url: "createSubscription",
+            data: data,
+            success: function( data ){
+              window.location.replace("success.php");          }
+          });
+        },
+        error: function(err) {
+          console.log(err);
+        },
+        close: function() {
+          console.log('The modal has been closed.');
+        }
+      });
+
+      // Obs.: é necessário passar os valores boolean como string
+      checkout.open({
+        createToken: 'false',
+        customerData: 'true'
+        }
+      );
+    });
+    </script>
+  </body>
+</html>
