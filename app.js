@@ -14,49 +14,37 @@ app.get('/', function(req, res) {
 app.post('/createSubscription',function (req,res) {
 	if (req.body.payment_method === 'credit_card'){
 		const pagarme = require('pagarme')
-		pagarme.client.connect({ api_key: 'SUA_API_KEY' })
-		 .then(client => client.subscriptions.create({
-		    plan_id: 233543,
-		    payment_method: req.body.payment_method,
+		pagarme.client.connect({ api_key: 'ak_test_vZz7BmZw9qfT6NJwk9Kubx2Q1odITG' })
+		 .then(client => client.transactions.create({
+		    amount: req.body.amount,
+        payment_method: req.body.payment_method,
 		    card_hash: req.body.card_hash,
-		    customer: {
-		      email: req.body.customer.email,
-		      name: req.body.customer.name,
-		      address : {
-			street: req.body.customer.address.street,
-			street_number: req.body.customer.address.street_number, 
-			zipcode: req.body.customer.address.zipcode,
-			neighborhood: req.body.customer.address.neighborhood, 
-			complementary: req.body.customer.address.complementary
-		      }
-		      
-		    }}))
-		  .then(subscription => console.log(subscription))
-		  .catch( function(error) { console.log(error); } );
-			
+        customer: req.body.customer
+      }))
+		  .then(transaction =>
+        console.log(JSON.stringify(transaction))
+      )
+		  .catch( error =>
+        console.log(JSON.stringify(error))
+      );
+
 	} else {
 		const pagarme = require('pagarme')
-		pagarme.client.connect({ api_key: 'SUA_API_KEY' })
-		  .then(client => client.subscriptions.create({
-		    plan_id: 233543,
+		pagarme.client.connect({ api_key: 'ak_test_vZz7BmZw9qfT6NJwk9Kubx2Q1odITG' })
+		  .then(client => client.transactions.create({
+        amount: req.body.amount,
 		    payment_method: req.body.payment_method,
-		    customer: {
-		      email: req.body.customer.email,
-		      name: req.body.customer.name,
-		      address : {
-			street: req.body.customer.address.street,
-			street_number: req.body.customer.address.street_number, 
-			zipcode: req.body.customer.address.zipcode,
-			neighborhood: req.body.customer.address.neighborhood, 
-			complementary: req.body.customer.address.complementary
-		      }
-		      
-		    }}))
-		  .then(subscription => console.log(subscription))
-		  .catch( function(error) { console.log(error); } );
+        customer: req.body.customer
+      }))
+		  .then(transaction =>
+        console.log(JSON.stringify(transaction))
+      )
+		  .catch( error =>
+        console.log(JSON.stringify(error))
+      );
 	}
-	
-	
+
+
 
 });
 

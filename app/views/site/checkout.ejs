@@ -15,7 +15,7 @@
 
       // inicia a instância do checkout
       var checkout = new PagarMeCheckout.Checkout({
-        encryption_key: 'SUA_ENCRYPTION_KEY',
+        encryption_key: 'ek_test_XrkRVobUGGTtvafcLGfoxPmNg5dnSD',
         success: function(data) {
           console.log(data);
           $.ajax({
@@ -37,7 +37,8 @@
       // Obs.: é necessário passar os valores boolean como string
       checkout.open({
         createToken: 'false',
-        customerData: 'true'
+        customerData: 'true',
+        amount: 1000
         }
       );
     });
