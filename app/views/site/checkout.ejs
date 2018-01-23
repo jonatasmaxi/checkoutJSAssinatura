@@ -1,21 +1,59 @@
 <html>
   <head>
     <!-- SCRIPT PAGAR.ME -->
-    <script src="https://assets.pagar.me/checkout/1.1.0/checkout.js"></script>
+    <script src="https://assets.pagar.me/checkout/checkout.js"></script>
      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   </head>
   <body>
-    <button id="pay-button">Abrir modal de pagamento</button>
+    <button id="subscription-button">Criar uma assinatura</button>
+
+    <button id="transaction-button">Criar uma transação</button>
 
     <script>
-    var button = document.querySelector('button');
+    var subscriptionButton = document.querySelector('#subscription-button');
+    var transactionButton = document.querySelector('#transaction-button');
+    
+    subscriptionButton.addEventListener('click', openSubscriptionModal);
 
-    // Abrir o modal ao clicar no botão
-    button.addEventListener('click', function() {
+    transactionButton.addEventListener('click', openTransactionModal);
+
+    function openTransactionModal() {
+      // inicia a instância do checkout
+      var checkout = new PagarMeCheckout.Checkout({
+        encryption_key: 'ek_test_XrkRVobUGGTtvafcLGfoxPmNg5dnSD',
+        success: function(data) {
+          console.log(data);
+          $.ajax({
+            type: "POST",
+            url: "createTransaction",
+            data: data,
+            success: function( data ){
+              window.location.replace("success.php");          }
+          });
+        },
+        error: function(err) {
+          console.log(err);
+        },
+        close: function() {
+          console.log('The modal has been closed.');
+        }
+      });
+
+      // Obs.: é necessário passar os valores boolean como string
+      checkout.open({
+        createToken: 'true',
+        customerData: 'true',
+        amount: 1000,
+        boletoInstructions: "Teste de boleto",
+        }
+      );
+    }
+
+    function openSubscriptionModal() {
 
       // inicia a instância do checkout
       var checkout = new PagarMeCheckout.Checkout({
-        encryption_key: 'SUA_ENCRYPTION_KEY',
+        encryption_key: 'ek_test_XrkRVobUGGTtvafcLGfoxPmNg5dnSD',
         success: function(data) {
           console.log(data);
           $.ajax({
@@ -37,10 +75,11 @@
       // Obs.: é necessário passar os valores boolean como string
       checkout.open({
         createToken: 'false',
-        customerData: 'true'
+        customerData: 'true',
+        amount: 1000
         }
       );
-    });
+    }
     </script>
   </body>
 </html>
