@@ -1,4 +1,5 @@
 const pagarme = require('pagarme')
+const api_key = "ak_test_vZz7BmZw9qfT6NJwk9Kubx2Q1odITG";
 var app = require('./config/server')
 
 var bodyParser = require('body-parser')
@@ -13,10 +14,10 @@ app.get('/', function(req, res) {
 
 app.post('/createSubscription',function (req,res) {
 	if (req.body.payment_method === 'credit_card'){
-		const pagarme = require('pagarme')
-		pagarme.client.connect({ api_key: 'ak_test_vZz7BmZw9qfT6NJwk9Kubx2Q1odITG' })
-		 .then(client => client.transactions.create({
+		pagarme.client.connect({ api_key: api_key })
+		 .then(client => client.subscriptions.create({
 		    amount: req.body.amount,
+        plan_id: "246102",
         payment_method: req.body.payment_method,
 		    card_hash: req.body.card_hash,
         customer: req.body.customer
@@ -29,10 +30,10 @@ app.post('/createSubscription',function (req,res) {
       );
 
 	} else {
-		const pagarme = require('pagarme')
-		pagarme.client.connect({ api_key: 'ak_test_vZz7BmZw9qfT6NJwk9Kubx2Q1odITG' })
-		  .then(client => client.transactions.create({
+		pagarme.client.connect({ api_key: api_key })
+		  .then(client => client.subscriptions.create({
         amount: req.body.amount,
+        plan_id: "246102",
 		    payment_method: req.body.payment_method,
         customer: req.body.customer
       }))
@@ -43,11 +44,22 @@ app.post('/createSubscription',function (req,res) {
         console.log(JSON.stringify(error))
       );
 	}
-
-
-
 });
 
+
+app.post('/createTransaction',function (req,res) {
+    pagarme.client.connect({ api_key: api_key })
+     .then(client => client.transactions.capture({
+        id: req.body.token,
+        amount: 1000
+      }))
+      .then(transaction =>
+        console.log(JSON.stringify(transaction))
+      )
+      .catch( error =>
+        console.log(JSON.stringify(error))
+      );
+});
 
 app.listen(8090, function() {
     console.log('localhost:8090');
