@@ -1,5 +1,5 @@
 const pagarme = require('pagarme')
-const api_key = "ak_test_vZz7BmZw9qfT6NJwk9Kubx2Q1odITG";
+const api_key = "SUA_API_KEY";
 var app = require('./config/server')
 
 var bodyParser = require('body-parser')
@@ -22,8 +22,8 @@ app.post('/createSubscription',function (req,res) {
 		    card_hash: req.body.card_hash,
         customer: req.body.customer
       }))
-		  .then(transaction =>
-        console.log(JSON.stringify(transaction))
+		  .then(subscription =>
+        console.log(JSON.stringify(subscription))
       )
 		  .catch( error =>
         console.log(JSON.stringify(error))
@@ -37,8 +37,8 @@ app.post('/createSubscription',function (req,res) {
 		    payment_method: req.body.payment_method,
         customer: req.body.customer
       }))
-		  .then(transaction =>
-        console.log(JSON.stringify(transaction))
+		  .then(subscription =>
+        console.log(JSON.stringify(subscription))
       )
 		  .catch( error =>
         console.log(JSON.stringify(error))
