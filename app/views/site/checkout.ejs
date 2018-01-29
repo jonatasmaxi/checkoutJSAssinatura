@@ -20,7 +20,7 @@
     function openTransactionModal() {
       // inicia a instância do checkout
       var checkout = new PagarMeCheckout.Checkout({
-        encryption_key: 'ek_test_XrkRVobUGGTtvafcLGfoxPmNg5dnSD',
+        encryption_key: 'SUA_ENCRYPTION_KEY',
         success: function(data) {
           console.log(data);
           $.ajax({
@@ -53,7 +53,7 @@
 
       // inicia a instância do checkout
       var checkout = new PagarMeCheckout.Checkout({
-        encryption_key: 'ek_test_XrkRVobUGGTtvafcLGfoxPmNg5dnSD',
+        encryption_key: 'SUA_ENCRYPTION_KEY',
         success: function(data) {
           console.log(data);
           $.ajax({
